@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Bitmap bitmap = (Bitmap)data.getExtras().get("data");
-        image = encodeImage(bitmap);
+        image = encodeBase(bitmap);
     }
 
     private void getAnalysis(String image) {
@@ -75,11 +75,11 @@ public class MainActivity extends AppCompatActivity {
                 };
     }
 
-    private String encodeImage(Bitmap bm)
+    private String encodeBase(Bitmap bm)
     {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG,100,baos);
-        byte[] b = baos.toByteArray();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG,100,stream);
+        byte[] b = stream.toByteArray();
         String encImage = Base64.encodeToString(b, Base64.DEFAULT);
 
         return encImage;
